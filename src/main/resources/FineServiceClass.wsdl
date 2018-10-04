@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="IFineService" targetNamespace="http://siv.api.FineService"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+                  xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+                  xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+                  xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:i0="http://tempuri.org/"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://siv.api.FineService"
+                  xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://siv.api.FineService"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://siv.api.SecurityInfo"/>
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+            <xs:element name="GetFines">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="finesData" nillable="true" type="tns:FinesRequestData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="FinesRequestData">
+                <xs:sequence>
+                    <xs:element name="CallMetod" type="tns:CallMetodType"/>
+                    <xs:element name="CallParameters" nillable="true" type="tns:ArrayOfCallParameter"/>
+                    <xs:element name="RequestID" nillable="true" type="xs:string"/>
+                    <xs:element name="SecurityInfo" nillable="true" type="q1:SecurityInfoData"
+                                xmlns:q1="http://siv.api.SecurityInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="FinesRequestData" nillable="true" type="tns:FinesRequestData"/>
+            <xs:simpleType name="CallMetodType">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Sts"/>
+                    <xs:enumeration value="Vu"/>
+                    <xs:enumeration value="Photo"/>
+                    <xs:enumeration value="Pdf"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="CallMetodType" nillable="true" type="tns:CallMetodType"/>
+            <xs:complexType name="ArrayOfCallParameter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="CallParameter" nillable="true"
+                                type="tns:CallParameter"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfCallParameter" nillable="true" type="tns:ArrayOfCallParameter"/>
+            <xs:complexType name="CallParameter">
+                <xs:sequence>
+                    <xs:element name="Type" type="tns:CallAttributeName"/>
+                    <xs:element name="Value" nillable="true" type="xs:anyType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CallParameter" nillable="true" type="tns:CallParameter"/>
+            <xs:simpleType name="CallAttributeName">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Sts"/>
+                    <xs:enumeration value="Vu"/>
+                    <xs:enumeration value="VuDate"/>
+                    <xs:enumeration value="Dap"/>
+                    <xs:enumeration value="Grz"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="CallAttributeName" nillable="true" type="tns:CallAttributeName"/>
+            <xs:element name="GetFinesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetFinesResult" nillable="true" type="tns:FinesResponseData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="FinesResponseData">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Items" nillable="true" type="q2:ArrayOfanyType"
+                                xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                    <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="RequestID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="StatusCode" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="FinesResponseData" nillable="true" type="tns:FinesResponseData"/>
+            <xs:complexType name="FinesDataItems">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="DAP" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="DatDAP" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DatLishBegin" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DatLishEnd" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DatNar" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="FineState" type="tns:FineStateType"/>
+                    <xs:element minOccurs="0" name="FineSum" type="xs:double">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="FioNar" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="GRZNar" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="HasPdf" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="HasPhoto" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="MestoDAP" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MestoNar" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Odps" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="OdpsName" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="StDAP" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="TipDAP" type="xs:int">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="TipDAPName" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="VidNak" type="xs:int">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="VidNakName" nillable="true" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <DefaultValue EmitDefaultValue="false"
+                                              xmlns="http://schemas.microsoft.com/2003/10/Serialization/"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="FinesDataItems" nillable="true" type="tns:FinesDataItems"/>
+            <xs:simpleType name="FineStateType">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="NotPayed"/>
+                    <xs:enumeration value="Payed"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="FineStateType" nillable="true" type="tns:FineStateType"/>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified"
+                   targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+            <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+            <xs:element name="byte" nillable="true" type="xs:byte"/>
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+            <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+            <xs:element name="double" nillable="true" type="xs:double"/>
+            <xs:element name="float" nillable="true" type="xs:float"/>
+            <xs:element name="int" nillable="true" type="xs:int"/>
+            <xs:element name="long" nillable="true" type="xs:long"/>
+            <xs:element name="QName" nillable="true" type="xs:QName"/>
+            <xs:element name="short" nillable="true" type="xs:short"/>
+            <xs:element name="string" nillable="true" type="xs:string"/>
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+            <xs:element name="char" nillable="true" type="tns:char"/>
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int"/>
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration"/>
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid"/>
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName"/>
+            <xs:attribute name="Id" type="xs:ID"/>
+            <xs:attribute name="Ref" type="xs:IDREF"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://siv.api.SecurityInfo"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://siv.api.SecurityInfo">
+            <xs:complexType name="SecurityInfoData">
+                <xs:sequence>
+                    <xs:element name="nonce" nillable="true" type="xs:string"/>
+                    <xs:element name="systemid" nillable="true" type="xs:string"/>
+                    <xs:element name="timestamp" nillable="true" type="xs:string"/>
+                    <xs:element name="token" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SecurityInfoData" nillable="true" type="tns:SecurityInfoData"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified"
+                   targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            <xs:complexType name="ArrayOfanyType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" type="xs:anyType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfanyType" nillable="true" type="tns:ArrayOfanyType"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IFineService_GetFines_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetFines"/>
+    </wsdl:message>
+    <wsdl:message name="IFineService_GetFines_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetFinesResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="IFineService">
+        <wsdl:operation name="GetFines">
+            <wsdl:input wsaw:Action="http://siv.api.FineService/IFineService/GetFines"
+                        message="tns:IFineService_GetFines_InputMessage"/>
+            <wsdl:output wsaw:Action="http://siv.api.FineService/IFineService/GetFinesResponse"
+                         message="tns:IFineService_GetFines_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_IFineService" type="tns:IFineService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetFines">
+            <soap:operation soapAction="http://siv.api.FineService/IFineService/GetFines" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="IFineService">
+        <wsdl:port name="BasicHttpBinding_IFineService" binding="tns:BasicHttpBinding_IFineService">
+            <soap:address location="http://avtokodapi.mos.ru:7005/FineServiceClass.svc"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
