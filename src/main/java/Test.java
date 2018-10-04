@@ -1,4 +1,4 @@
-import service.*;
+import fineService.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -30,7 +30,7 @@ public class Test {
 
         FinesResponseData responseData = iFineService.getFines(requestData);
 
-        JAXBContext jaxbContext = JAXBContext.newInstance("service");
+        JAXBContext jaxbContext = JAXBContext.newInstance("fineService");
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
