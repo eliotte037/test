@@ -1,3 +1,5 @@
+package connect;
+
 import fineService.*;
 
 import javax.xml.bind.JAXBContext;
